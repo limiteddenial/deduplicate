@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      # - name: Tag
+      #   run: |
+      #       VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+      #       VERSION=${GITHUB_REF#refs/tags/}
+      #       echo "VERSION=$VERSION"
+      #       test=$(awk -F'[ .]' '{print $1"."$2+1"."$3}' <<< $VERSION)
+
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+            TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+            echo "Latest tag: $TAG"
+            echo "::set-output name=tag::$TAG"
+
+      - name: Use the latest tag
+        env:
+          VERSION: ${{ steps.get_tag.outputs.tag }}
+        run: |
+            test=$(awk -F'[ .]' '{print $1"."$2+1"."$3}' <<< $VERSION)
+            echo "$test"
+
+      

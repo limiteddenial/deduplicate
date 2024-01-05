@@ -33,6 +33,8 @@ builds:
       - windows
     goarch:
       - amd64
+    goamd64:
+      - v4
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
@@ -41,10 +43,6 @@ builds:
 
 universal_binaries:
   - replace: false
-
-# temporarely disables until we add better filters for platforms et al, and test more.
-# upx:
-#   - enabled: true
 
 checksum:
   name_template: "checksums.txt"
