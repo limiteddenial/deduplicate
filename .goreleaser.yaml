@@ -32,18 +32,12 @@ builds:
       - darwin
       - windows
     goarch:
-      - "386"
       - amd64
-    goarm:
-      - "7"
-    ignore:
-      - goos: windows
-        goarch: arm
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }}
+      - -s -w -X main.Version={{.Version}} -X main.GitCommit={{.Commit}} -X main.BuildTime={{ .CommitDate }}
 
 universal_binaries:
   - replace: false
@@ -105,7 +99,7 @@ archives:
       owner: root
     files:
       - README.md
-      - LICENSE.md
+      - LICENSE
 
 nix:
   - name: goreleaser
