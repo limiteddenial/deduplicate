@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build_release:
-    name: Create Release
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

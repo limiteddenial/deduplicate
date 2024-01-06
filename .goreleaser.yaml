@@ -34,7 +34,7 @@ builds:
     goarch:
       - amd64
     goamd64:
-      - v4
+      - v3
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
@@ -99,18 +99,6 @@ archives:
       - README.md
       - LICENSE
 
-nix:
-  - name: goreleaser
-    repository:
-      owner: goreleaser
-      name: nur
-    homepage: https://goreleaser.com
-    description: Deliver Go binaries as fast and easily as possible
-    path: pkgs/goreleaser/default.nix
-    license: mit
-    extra_install: |-
-      installManPage ./manpages/goreleaser.1.gz
-      installShellCompletion ./completions/*
 
 
 release:
