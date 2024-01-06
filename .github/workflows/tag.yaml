@@ -19,6 +19,7 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
+            git describe --tags --abbrev=0
             TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
             echo "Latest tag: $TAG"
             echo "tag=$TAG" >> $GITHUB_OUTPUT
