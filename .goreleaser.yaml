@@ -114,4 +114,4 @@ nix:
 
 
 release:
-  name_template: "v{{ .Version }}"
+  name_template: "{{ .Version }}"
