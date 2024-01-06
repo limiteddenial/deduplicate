@@ -1,6 +1,10 @@
 name: Release
 
 on:
+  workflow_run:
+    workflows: ["Tag"]
+    types:
+      - completed
   push:
     tags:
       - '*'
@@ -15,7 +19,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
