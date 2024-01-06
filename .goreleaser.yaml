@@ -36,7 +36,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X main.Version={{.Version}} -X main.GitCommit={{.Commit}} -X main.BuildTime={{ .CommitDate }}
+      - -s -w -X deduplicate/version.Version={{.Version}} -X deduplicate/version.GitCommit={{.Commit}} -X deduplicate/version.BuildTime={{ .CommitDate }}
 
 universal_binaries:
   - replace: false
