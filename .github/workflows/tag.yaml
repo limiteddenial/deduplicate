@@ -1,7 +1,7 @@
 name: Tag
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -9,8 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  build_release:
-    name: Create Release
+  tag:
+    name: Create Tag
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
