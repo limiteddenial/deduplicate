@@ -1,0 +1,42 @@
+name: Tag
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Fetch all tags
+        run: git fetch --tags
+        
+      - name: Get latest tag
+        id: get_tag
+        run: |
+            TAG=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1) 2>/dev/null || echo "1.0.0")
+            echo "Latest tag: $TAG"
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Use the latest tag
+        id: increment_tag
+        env:
+          VERSION: ${{ steps.get_tag.outputs.tag }}
+        run: |
+            increment_version=$(awk -F'[ .]' '{print $1"."$2+1"."$3}' <<< $VERSION)
+            echo "version=$increment_version" >> $GITHUB_OUTPUT
+
+      - name: Push tag to remote
+        run: |
+          git tag ${{ steps.increment_tag.outputs.version }}
+          git push origin ${{ steps.increment_tag.outputs.version }}
+
+      

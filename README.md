@@ -1,2 +1,3 @@
 # deduplicate
-Simple CLI to find duplicate files and remove the duplicates
+
+Simple CLI to search for duplicate files and removes them
